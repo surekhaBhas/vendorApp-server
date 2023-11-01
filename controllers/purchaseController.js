@@ -1,16 +1,20 @@
 const purchaseModel=require('../models/Purchase')
 const userModel=require('../models/User')
 
-const getVendorOrders=async(req,res)=>{
-  const {id}=req.params
-  try{
-    const purchaseOrders=await purchaseModel.find({vendor:id}).sort({createdAt:"-1"})
-    res.send(purchaseOrders)
-  }catch(err){
-    res.send(err)
-    console.log(err)
+const getVendorOrders = async (req, res) => {
+  const { id } = req.params;
+  console.log("Vendor ID:", id); // Log the vendor ID for debugging
+
+  try {
+    const purchaseOrders = await purchaseModel.find({ vendor: id }).populate('user').sort({ createdAt: -1 });
+    console.log("Purchase Orders:", purchaseOrders); // Log the result for debugging
+    res.send(purchaseOrders);
+  } catch (err) {
+    console.error(err); // Log the error for debugging
+    res.status(500).send(err);
   }
 }
+
 
 const giveAcknowledge = async (req, res) => {
   const { id } = req.params;

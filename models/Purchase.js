@@ -8,12 +8,12 @@ const purchaseSchema = new mongoose.Schema(
     pdf: String,
     vendor: {
       type: mongoose.ObjectId,
-      ref: 'users',
+      ref: 'User',
       required: true,
     },
     user: {
       type: mongoose.ObjectId,
-      ref: 'users',
+      ref: 'User',
     },
     message: {
       type: String,
